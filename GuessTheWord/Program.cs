@@ -1,11 +1,10 @@
-﻿
-namespace GuessTheNumber
-
+﻿namespace GuessTheWord
 {
     internal class Program
     {
         static void Main(string[] args)
         {
+
             Console.WriteLine("######         ### #######");
             Console.WriteLine("#     #  ####   #     #   ");
             Console.WriteLine("#     # #    #  #     #   ");
@@ -13,18 +12,10 @@ namespace GuessTheNumber
             Console.WriteLine("#     # #    #  #     #   ");
             Console.WriteLine("#     # #    #  #     #   ");
             Console.WriteLine("######   ####  ###    #   ");
-            Console.WriteLine("Welcome to \"Guess the Number!\"\n\n");
-               Console.WriteLine("Choose the game mode: \n" + "1 - Easy(from 1 to 25)\n" + "2 - Medium(from 1 to 50)\n" + "3 - Hard(from 1 to 100)\n");
-                
-            int mode = int.Parse(Console.ReadLine());
+            Console.WriteLine("\n\n");
 
-            SecretNumber game = new SecretNumber(mode);
-
-            game.PlayGame();
-              
-           
-           
-            
+            SecretWord gamer = new SecretWord();
+            gamer.PlayGame();
         }
-    }   
+    }
 }
