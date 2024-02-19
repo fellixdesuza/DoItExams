@@ -8,7 +8,7 @@ namespace Calculator
 {
     public class Calculator
     {
-        public double GetNumber(string message)
+        public static double GetNumber(string message)
         {
             Console.WriteLine(message);
             double number;
@@ -19,7 +19,7 @@ namespace Calculator
             return number;
         }
 
-        public char GetOperator(string message)
+        public static char GetOperator(string message)
         {
             Console.WriteLine(message);
             char op = Console.ReadKey().KeyChar;
@@ -31,7 +31,7 @@ namespace Calculator
             return op;
         }
 
-        public double PerformOperation(double num1, char op, double num2)
+        public static double PerformOperation(double num1, char op, double num2)
         {
             switch (op)
             {

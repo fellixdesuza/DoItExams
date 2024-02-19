@@ -4,18 +4,18 @@
     {
         static void Main(string[] args)
         {
-            Calculator calculator = new Calculator();
+           
             bool exit = false;
 
             do
             {
                 try
                 {
-                    double num1 = calculator.GetNumber("Enter the first number:");
-                    char op = calculator.GetOperator("Enter the operator (+, -, *, /):");
-                    double num2 = calculator.GetNumber("Enter the second number:");
+                    double num1 = Calculator.GetNumber("Enter the first number:");
+                    char op = Calculator.GetOperator("Enter the operator (+, -, *, /):");
+                    double num2 = Calculator.GetNumber("Enter the second number:");
 
-                    double result = calculator.PerformOperation(num1, op, num2);
+                    double result = Calculator.PerformOperation(num1, op, num2);
                     Console.WriteLine("Result: " + result);
                 }
                 catch (Exception ex)
