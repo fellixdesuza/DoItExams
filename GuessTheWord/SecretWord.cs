@@ -121,7 +121,7 @@ namespace GuessTheWord
         static string GetLettersOnly(string input)
         {
             string result = "";
-
+            input = input.ToLower();
             foreach (char c in input)
             {
                 if (char.IsLetter(c))
