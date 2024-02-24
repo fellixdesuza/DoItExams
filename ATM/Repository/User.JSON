@@ -1,1 +1,16 @@
-[{"Id":0,"Name":"Lela Datashvili","PersonalId":24001012858,"Password":8093,"Balance":600},{"Id":1,"Name":"Otar Tagviashvili","PersonalId":24001005273,"Password":3264,"Balance":250},{"Id":2,"Name":"Ana Tagviashvili","PersonalId":24001018965,"Password":8661,"Balance":0},{"Id":3,"Name":"Manana Txinvaleli","PersonalId":24001597845,"Password":7567,"Balance":350}]
+[
+  {
+    "Id": 0,
+    "Name": "Otar Tagviashvili",
+    "PersonalId": 24001005273,
+    "Password": 1041,
+    "Balance": 300
+  },
+  {
+    "Id": 1,
+    "Name": "Lela Datashvili",
+    "PersonalId": 24001012858,
+    "Password": 7644,
+    "Balance": 0
+  }
+]

@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Xml;
+using Newtonsoft.Json;
 
 namespace ATM.Repository
 {
@@ -31,13 +32,12 @@ namespace ATM.Repository
             {
                 Console.WriteLine("An error occurred: " + ex.Message);
             }
-
             return _users;
         }
 
         private static List<User> Parse(string input)
         {
-            var result = JsonSerializer.Deserialize<List<User>>(input);
+            var result = JsonConvert.DeserializeObject<List<User>>(input);
             return result;
         }
 
@@ -54,26 +54,19 @@ namespace ATM.Repository
         }
 
         public void UpdateUser(User user)
-        {
-            string tempUsers = "";
+        { 
             List<User> users = ReadUserFromFile();
-            foreach(User person in users)
+            foreach(var person in users)
             {
                 if (person.PersonalId == user.PersonalId)
                 {
-                    person.Balance = user.Balance;
-                    
+                    person.Balance = user.Balance;                   
                 }
             }
-            foreach (User item in users)
-            {
-                tempUsers += JsonSerializer.Serialize(item) + ",";
-            }
-
-            tempUsers = "[" + tempUsers.TrimEnd(',') + "]";
+            var jsonData = JsonConvert.SerializeObject(users,Newtonsoft.Json.Formatting.Indented);
             try
             {
-                File.WriteAllText(_path, tempUsers);
+                File.WriteAllText(_path, jsonData);
             }
             catch (Exception ex)
             {
@@ -83,18 +76,12 @@ namespace ATM.Repository
 
         public void AddUserToFile(User user)
         {
-            string tempUsers = "";
             List<User> users = ReadUserFromFile();
             users.Add(user);
-            foreach (User item in users)
-            {
-                tempUsers += JsonSerializer.Serialize(item) + ",";
-            }
-            
-            tempUsers = "[" + tempUsers.TrimEnd(',') + "]";
+            var jsonData = JsonConvert.SerializeObject(users, Newtonsoft.Json.Formatting.Indented);
             try
             {
-                File.WriteAllText(_path, tempUsers);
+                File.WriteAllText(_path, jsonData);
                 Console.WriteLine("User has been successfully saved.\n------------------");
             }
             catch (Exception ex)
@@ -102,5 +89,6 @@ namespace ATM.Repository
                 Console.WriteLine("An error occurred: " + ex.Message);
             }
         }
+        
     }
 }

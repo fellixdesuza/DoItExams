@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace ATM.Repository
 {
@@ -36,7 +37,7 @@ namespace ATM.Repository
 
         private static List<Transactions> Parse(string input)
         {
-            var result = JsonSerializer.Deserialize<List<Transactions>>(input);
+            var result = JsonConvert.DeserializeObject<List<Transactions>>(input);
             return result;
         }
 
@@ -44,17 +45,12 @@ namespace ATM.Repository
 
         public void AddLogToFile(Transactions account)
         {
-            string tempLogs = "";
             List<Transactions> accounts = ReadLogsFromFile();
             accounts.Add(account);
-            foreach (Transactions item in accounts)
-            {
-                tempLogs += JsonSerializer.Serialize(item) + ",";
-            }
-            tempLogs = "[" + tempLogs.TrimEnd(',') + "]";
+            string jsonData = JsonConvert.SerializeObject(accounts, Newtonsoft.Json.Formatting.Indented);
             try
             {
-                File.WriteAllText(_path, tempLogs);
+                File.WriteAllText(_path, jsonData);
             }
             catch (Exception ex)
             {
