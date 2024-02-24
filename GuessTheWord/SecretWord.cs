@@ -34,19 +34,29 @@ namespace GuessTheWord
 
                 Console.Write("Enter a letter or whole word: ");
                 string guessWord = null;
+                string input = null;
 
-
-                string input = Console.ReadLine();
-                try
+                while (true)
                 {
-                    guessWord = GetLettersOnly(input);
+                    try
+                    {
+                        input = Console.ReadLine();
+                        if (!IsLetters(input))
+                        {
+                            throw new FormatException("Input contains non-letter characters.");
+                        }
+                        guessWord = input;
+                        break;
+                    }
+                    catch (FormatException e)
+                    {
+                        
+                        Console.WriteLine("Error: " + e.Message);
+                    }
                 }
-                catch (ArgumentException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+                
                 char guessChar = Char.ToLower(guessWord[0]);
-               // Console.WriteLine('\n');
+            
                 string tempWord = null;
                 if (guessWord == secretWord)
                 {
@@ -118,23 +128,17 @@ namespace GuessTheWord
 
             return union;
         }
-        static string GetLettersOnly(string input)
+        private static bool IsLetters(string input)
         {
-            string result = "";
             foreach (char c in input)
             {
-                if (char.IsLetter(c))
+                if (!char.IsLetter(c))
                 {
-                    result += c;
-                }
-                else
-                {
-                    throw new ArgumentException("Input must contain only letters.");
+                    return false;
                 }
             }
-            result = result.ToLower();
-            return result;
+            return true;
         }
-        
+
     }
 }

@@ -8,26 +8,51 @@ namespace Calculator
 {
     public class Calculator
     {
-        public static double GetNumber(string message)
+        public static double GetNumber(string message)          
         {
+            double number=0;
             Console.WriteLine(message);
-            double number;
-            if (!double.TryParse(Console.ReadLine(), out number))
+            while (true)
             {
-                throw new FormatException("Invalid input! Please enter a valid number.");
+                try
+                {                 
+                    string input = Console.ReadLine();
+                    if (!IsNumeric(input))
+                    {
+                        throw new FormatException("Input contains non-numeric characters.");
+                    }
+                    number = double.Parse(input);
+                    break;                   
+                }
+                catch (FormatException e)
+                {
+                    Console.WriteLine("Error: " + e.Message);
+                }              
             }
             return number;
         }
 
         public static char GetOperator(string message)
         {
+            char op;
             Console.WriteLine(message);
-            char op = Console.ReadKey().KeyChar;
-            if (op != '+' && op != '-' && op != '*' && op != '/')
+            while (true)
             {
-                throw new InvalidOperationException("Invalid operator!");
+                try
+                {
+                     string input = Console.ReadLine();
+                    if (!IsOperation(input))
+                    {
+                        throw new FormatException("Input contains non-operation characters.");
+                    }
+                    op = char.Parse(input);
+                    break;
+                }
+                catch (FormatException e)
+                {
+                    Console.WriteLine("Error: " + e.Message);
+                }
             }
-            Console.WriteLine();
             return op;
         }
 
@@ -50,6 +75,27 @@ namespace Calculator
                 default:
                     throw new InvalidOperationException("Invalid operator!");
             }
+        }
+        private static bool IsNumeric(string input)
+        {
+            foreach (char c in input)
+            {
+                if (!char.IsDigit(c))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        private static bool IsOperation(string input)
+        {
+            foreach(char c in input)
+            { if (!(c == '+' || c == '-' || c == '*' || c == '/'))
+                { 
+                    return false; 
+                }
+            }
+            return true;
         }
     }
 }
