@@ -45,7 +45,12 @@ namespace ATM.Repository
 
         public void AddLogToFile(Transactions account)
         {
-            List<Transactions> accounts = ReadLogsFromFile();
+            string file = "..\\..\\..\\Repository\\Log.JSON";
+            List<Transactions> accounts = new List<Transactions>();
+            if (File.Exists(file))
+            {
+                accounts = ReadLogsFromFile();
+            }
             accounts.Add(account);
             string jsonData = JsonConvert.SerializeObject(accounts, Newtonsoft.Json.Formatting.Indented);
             try

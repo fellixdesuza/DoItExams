@@ -1,6 +1,7 @@
 ﻿using ATM.Repository;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,10 +19,16 @@ namespace ATM
         
 
         public static User UserRegister(User user)
-        {
+        {           
             bool login = false;
             UserRepository userRepository = new ();
-            List<User> users = userRepository.ReadUserFromFile();
+            string file = "..\\..\\..\\Repository\\User.JSON";
+            List<User> users = new List<User>();
+            if (File.Exists(file))
+            {
+                users = userRepository.ReadUserFromFile(); 
+            }
+
             User authorisedUser = new User();
             if (users.Count == 0)
                 user.Id = 0;
@@ -136,95 +143,104 @@ namespace ATM
 
         public static User UserLogin(User user)
         {
-            bool login = false;
-            UserRepository userRepository = new();
-            List<User> users = userRepository.ReadUserFromFile();
-            User authorisedUser = null;    
-            if (users.Count == 0)
+            string file = "..\\..\\..\\Repository\\User.JSON";
+            User authorisedUser = null;
+            if (File.Exists(file))
             {
-                Console.WriteLine("There are not registered users. Please register to use ATM.\n------------------");
-               
-            }
-            Console.Write("Type you personal ID: ");
-            string tempId = "";
-            long tempID = 0;
-            while (true)
-            {
-                try
+                bool login = false;
+                UserRepository userRepository = new();
+                List<User> users = userRepository.ReadUserFromFile();               
+                //if (users.Count == 0)
+                //{
+                //    Console.WriteLine("There are not registered users. Please register to use ATM.\n------------------");
+                //}
+                Console.Write("Type you personal ID: ");
+                string tempId = "";
+                long tempID = 0;
+                while (true)
                 {
-                    tempId = Console.ReadLine();
-                    if (!IsNumeric(tempId))
+                    try
                     {
-                        throw new FormatException("Input contains non-numeric characters.");
-                    }
-                    if (tempId.Length != 11)
-                    {
-                        Console.WriteLine("ID size is not correct.\n------------------");                       
-                    }
-                    else
-                    {
-                        tempID = long.Parse(tempId);
-                        break;
-                    }
-                }
-                catch (FormatException e)
-                {
-                    Console.WriteLine("Error: " + e.Message + "\nType correct ID:");
-                }
-            }            
-            Console.WriteLine("\n");
-
-            foreach (var person in users)
-            {
-                if (person.PersonalId == tempID)
-                {
-                    Console.Write("Type your password:");
-                    int tempPass = 0;
-                    while (true)
-                    {
-                        try
+                        tempId = Console.ReadLine();
+                        if (!IsNumeric(tempId))
                         {
-                            string stringPass = Console.ReadLine();
-                            if (!IsNumeric(stringPass))
-                            {
-                                throw new FormatException("Input contains non-numeric characters.");
-                            }
+                            throw new FormatException("Input contains non-numeric characters.");
+                        }
+                        if (tempId.Length != 11)
+                        {
+                            Console.WriteLine("ID size is not correct.\n------------------");
+                        }
+                        else
+                        {
+                            tempID = long.Parse(tempId);
+                            break;
+                        }
+                    }
+                    catch (FormatException e)
+                    {
+                        Console.WriteLine("Error: " + e.Message + "\nType correct ID:");
+                    }
+                }
+                Console.WriteLine("\n");
 
-                            if (stringPass.Length != 4)
+                foreach (var person in users)
+                {
+                    if (person.PersonalId == tempID)
+                    {
+                        Console.Write("Type your password:");
+                        int tempPass = 0;
+                        while (true)
+                        {
+                            try
                             {
-                                throw new FormatException("Password length must be four");
-                            }
-                           
+                                string stringPass = Console.ReadLine();
+                                if (!IsNumeric(stringPass))
+                                {
+                                    throw new FormatException("Input contains non-numeric characters.");
+                                }
+
+                                if (stringPass.Length != 4)
+                                {
+                                    throw new FormatException("Password length must be four");
+                                }
+
                                 tempPass = int.Parse(stringPass);
                                 break;
-                            
-                        }
-                        catch (FormatException e)
-                        {
-                            Console.WriteLine("Error: " + e.Message + "\nType correct password:");
-                        }
-                    }
-                    
-                    if (tempPass == person.Password)
-                    {
-                        Console.WriteLine("\n------------------");
 
-                        authorisedUser = person;
-                        break;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Password is incorrect.\n------------------");
-                        authorisedUser = null;
-                        return authorisedUser;
+                            }
+                            catch (FormatException e)
+                            {
+                                Console.WriteLine("Error: " + e.Message + "\nType correct password:");
+                            }
+                        }
+
+                        if (tempPass == person.Password)
+                        {
+                            Console.WriteLine("\n------------------");
+
+                            authorisedUser = person;
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Password is incorrect.\n------------------");
+                            authorisedUser = null;
+                            return authorisedUser;
+                        }
                     }
                 }
+                //if (authorisedUser == null)
+                //{
+                //    Console.WriteLine("You are not registered.\n------------------");
+                //}
+                return authorisedUser; 
             }
-            if(authorisedUser == null) 
-                {
-                    Console.WriteLine("You are not registered.\n------------------");                  
-                }
-            return authorisedUser;
+            else
+            {
+                Console.WriteLine("There are not registered users. Please register to use ATM.\n------------------");
+                authorisedUser = null;
+                return authorisedUser;
+            }
         }
 
         private static bool IsLetters(string input)

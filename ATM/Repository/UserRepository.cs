@@ -76,7 +76,12 @@ namespace ATM.Repository
 
         public void AddUserToFile(User user)
         {
-            List<User> users = ReadUserFromFile();
+            string file = "..\\..\\..\\Repository\\User.JSON";
+            List<User> users = new List<User>();
+            if (File.Exists(file))
+            {
+                users = ReadUserFromFile();
+            }
             users.Add(user);
             var jsonData = JsonConvert.SerializeObject(users, Newtonsoft.Json.Formatting.Indented);
             try
