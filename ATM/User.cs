@@ -15,7 +15,6 @@ namespace ATM
 
         public int Password { get; set; }
         public  long Balance { get; set; }
-        public User() { }
         
 
         public static User UserRegister(User user)
