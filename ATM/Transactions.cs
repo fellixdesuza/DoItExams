@@ -144,8 +144,13 @@ namespace ATM
             {
                 if (tempID == person.PersonalId)
                 {
-                    receiverUser = person;                   
-                }               
+                    receiverUser = person;
+                    break;
+                }
+                else
+                {
+                    receiverUser = null;
+                }
             }
             if(receiverUser != null)
             {
