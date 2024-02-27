@@ -150,10 +150,6 @@ namespace ATM
                 bool login = false;
                 UserRepository userRepository = new();
                 List<User> users = userRepository.ReadUserFromFile();               
-                //if (users.Count == 0)
-                //{
-                //    Console.WriteLine("There are not registered users. Please register to use ATM.\n------------------");
-                //}
                 Console.Write("Type you personal ID: ");
                 string tempId = "";
                 long tempID = 0;
@@ -229,10 +225,6 @@ namespace ATM
                         }
                     }
                 }
-                //if (authorisedUser == null)
-                //{
-                //    Console.WriteLine("You are not registered.\n------------------");
-                //}
                 return authorisedUser; 
             }
             else
@@ -243,7 +235,7 @@ namespace ATM
             }
         }
 
-        private static bool IsLetters(string input)
+        public static bool IsLetters(string input)
         {
             foreach (char c in input)
             {
@@ -255,7 +247,7 @@ namespace ATM
             return true;
         }
 
-        private static bool IsNumeric(string input)
+        public static bool IsNumeric(string input)
         {
             foreach (char c in input)
             {

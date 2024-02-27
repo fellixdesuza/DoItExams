@@ -1,0 +1,16 @@
+[
+  {
+    "Id": 0,
+    "Name": "Otar Tagviashvili",
+    "PersonalId": 24001005273,
+    "Password": 5376,
+    "Balance": 510
+  },
+  {
+    "Id": 1,
+    "Name": "Lela Datashvili",
+    "PersonalId": 24001012858,
+    "Password": 4528,
+    "Balance": 500
+  }
+]

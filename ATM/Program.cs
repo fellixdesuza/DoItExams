@@ -59,7 +59,7 @@ namespace ATM
 
                 while (login)
                 {
-                    Console.WriteLine("Available Options:\nShow Balance - 1\nDeposit - 2\nWithdraw - 3\nTransactions History - 4\nLog Out - 5\n-------------------------\n");
+                    Console.WriteLine("Available Options:\nShow Balance - 1\nDeposit - 2\nWithdraw - 3\nTransfer - 4\nTransactions History - 5\nLog Out - 6\n-------------------------\n");
                     int action = 0; 
                     while (true)
                     {
@@ -113,9 +113,27 @@ namespace ATM
                             transactions.Withdraw(authorisedUser, withdrawAmount);
                             break;
                         case 4:
-                            transactions.TransactionHistory(authorisedUser);
+                            Console.Write("Type transfer amount: ");
+                            long transferAmount = 0;
+                            while (true)
+                            {
+                                try
+                                {
+                                    transferAmount = long.Parse(Console.ReadLine());
+                                    break;
+                                }
+                                catch (FormatException)
+                                {
+                                    Console.WriteLine("Invalid input. Please enter valid answer.");
+                                }
+                            }
+
+                            transactions.Transfer(authorisedUser, transferAmount);
                             break;
                         case 5:
+                            transactions.TransactionHistory(authorisedUser);
+                            break;
+                        case 6:
                             Console.WriteLine("You are logged out!\n-------------------------\n");
                             login = false;
                             break;
