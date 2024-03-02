@@ -60,7 +60,7 @@ namespace GuessTheWord
                 string tempWord = null;
                 if (guessWord == secretWord)
                 {
-                    Console.WriteLine("\nWow, Congratulations! You are Genius!\nSecret Word was: " + secretWord);
+                    Console.WriteLine("\nWow, Congratulations! You are Genius!\nSecret word was: " + secretWord);
                     return;
                 }
                 foreach (char c in secretWord)
@@ -88,7 +88,7 @@ namespace GuessTheWord
                 
                 if (comp == secretWord)
                 {
-                    Console.WriteLine("\nWow, Congratulations! You are Genius!\nSecret Word was: " + secretWord);
+                    Console.WriteLine("\nWow, Congratulations! You are Genius!\nSecret word was: " + secretWord);
                     return;
                 }
               
