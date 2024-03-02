@@ -27,7 +27,7 @@ namespace ATM
             }
 
             user.Balance += amount;
-            Console.WriteLine($"You deposited {amount} GEL to you balance. your current balance is {user.Balance} GEL.\n------------------");
+            Console.WriteLine($"You deposited {amount} GEL to your balance. Current balance is {user.Balance} GEL.\n------------------");
             transaction.TransactionID = user.Id;
             transaction.Actions = $"{user.Name} deposited {amount} GEL. Transaction date: {DateTime.Now}";
             transactionRepository.AddLogToFile(transaction);
@@ -52,7 +52,7 @@ namespace ATM
                 return;
             }
             user.Balance -= amount;
-            Console.WriteLine($"You withdrawn {amount} GEL from your balance. your current balance is {user.Balance} GEL.\n------------------");
+            Console.WriteLine($"You withdrawn {amount} GEL from your balance. Current balance is {user.Balance} GEL.\n------------------");
             transaction.TransactionID = user.Id;
             transaction.Actions = $"{user.Name} withdrawn {amount} GEl. Transaction date: {DateTime.Now}";
             transactionRepository.AddLogToFile(transaction);
@@ -109,7 +109,7 @@ namespace ATM
             else if (amount > user.Balance)
             {
 
-                Console.WriteLine($"Your balance is not enough.\nYour current balance is {user.Balance} GEL\n-----------------");
+                Console.WriteLine($"Your balance is not enough.\nCurrent balance is {user.Balance} GEL\n-----------------");
                 return;
             }
             string tempId = "";
@@ -156,7 +156,7 @@ namespace ATM
             {
                 receiverUser.Balance += amount;
                 user.Balance -= amount;
-                Console.WriteLine($"You transferred {amount} GEL to {receiverUser.Name}. Your current balance is {user.Balance} GEL.\n------------------");
+                Console.WriteLine($"You transferred {amount} GEL to {receiverUser.Name}. Current balance is {user.Balance} GEL.\n------------------");
                 sender.TransactionID = user.Id;
                 sender.Actions = $"{user.Name} sent {amount} GEl to {receiverUser.Name}. Transaction date: {DateTime.Now}";
                 transactionSender.AddLogToFile(sender);
